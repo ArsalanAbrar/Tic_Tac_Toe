@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<dimen name="splash_image_hieght">@dimen/_350sdp</dimen>
+<dimen name="text_size">@dimen/_15sdp</dimen>
+    <dimen name="button_padding">@dimen/_30sdp</dimen>
+    <dimen name="button_bottom_hieght">@dimen/_13sdp</dimen>
+</resources>

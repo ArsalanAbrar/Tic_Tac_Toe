@@ -6,22 +6,26 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="450dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/splash_image_hieght"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/tic_tac_toe" />
+        android:src="@drawable/tictactoew" />
 
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
+        android:paddingLeft="@dimen/button_padding"
+        android:paddingRight="@dimen/button_padding"
+        android:layout_marginBottom="@dimen/button_bottom_hieght"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/buttontextcolor"
+        android:background="@drawable/buttonbackground"
         android:onClick="start"
-        android:text="click to start" />
+        android:text="@string/startgame" />
 
 </RelativeLayout>

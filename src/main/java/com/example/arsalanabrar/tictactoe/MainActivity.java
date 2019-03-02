@@ -1,11 +1,13 @@
 package com.example.arsalanabrar.tictactoe;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Time;
@@ -15,8 +17,10 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9;
-
+    TextView t1,t2;
     int turn;
+    int count=1;
+    View view1;
     int no_of_match,pl1,pl2=0;
 
 
@@ -42,48 +46,56 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkWinner(Button b1, Button b2, Button b3) {
 
-        if (b1.getText() == b2.getText().toString() && b2.getText().toString() == b3.getText().toString() && b3.getText().toString() == "X") {
-            no_of_match++;
+        if (b1.getText().toString() == b2.getText().toString() && b2.getText().toString() == b3.getText().toString() && b3.getText().toString() == "X") {
+           // no_of_match++;
             pl1++;
-            if (no_of_match==5){
-                no_of_match=0;
-                alert_dialog_box_match_stats();
-            }
-            Toast.makeText(MainActivity.this, "player 1 is winner ", Toast.LENGTH_LONG).show();
-            final Timer timer = new Timer(); // This will create a new Thread
-            timer .schedule(new TimerTask() { // task to be scheduled
-                @Override
+            t1.setText("PLAYER 1 : "+pl1);
+            Timer timer = new Timer();
+            TimerTask timerTaskObj = new TimerTask() {
                 public void run() {
-                    timer.purge();
-                    timer.cancel();
-                    reset();
+                    //perform your action here
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            reset();
+                        }
+                    });
+
                 }
-            }, 500, 2000);
+            };
+            timer.schedule(timerTaskObj, 0, 2000);
+
             }
             if (b1.getText() == b2.getText().toString() && b2.getText().toString() == b3.getText().toString() && b3.getText().toString() == "O") {
-             no_of_match++;
+           //  no_of_match++;
              pl2++;
-                if (no_of_match==5){
-                    no_of_match=0;
-                    alert_dialog_box_match_stats();
-                }
-                Toast.makeText(MainActivity.this, "player 2 is winner ", Toast.LENGTH_LONG).show();
-            final Timer timer=new Timer();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    timer.purge();
-                    timer.cancel();
-                    reset();
-                }
-            },500,2000);
+             t2.setText("PLAYER 2 : "+pl2);
+                Timer timer = new Timer();
+                TimerTask timerTaskObj = new TimerTask() {
+                    public void run() {
+                        //perform your action here
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                reset();
+                            }
+                        });
+
+                    }
+                };
+                timer.schedule(timerTaskObj, 0, 2000);
+
 
         }
     }
 
     public void reset() {
-
-        turn = 1;
+        count++;
+        if(count%2==0) {
+            turn = 2;
+        }else {
+            turn=1;
+        }
 
         b1.setText("");
 
@@ -109,23 +121,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
        alert_dialog_box();
     }
-
-    public void alert_dialog_box_match_stats(){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-
-        alertDialogBuilder.setMessage("              MATCH STATS : "+'\n'+ " Player 1 : "+pl1+'\n'+" Player 2 : "+pl2);
-        alertDialogBuilder.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
-
-
 
     public void alert_dialog_box(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -155,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.start);
+
     }
 
     public void start(View view){
@@ -179,12 +175,26 @@ public class MainActivity extends AppCompatActivity {
 
         b9=(Button) findViewById(R.id.button9);
 
-        turn=1;
+        t1=(TextView)findViewById(R.id.textView5);
+
+        t2=(TextView)findViewById(R.id.textView6);
+
+        view1=(View) findViewById(R.id.view);
+
+        t1.setText("PLAYER 1 : "+pl1);
+        t2.setText("PLAYER 2 : "+pl2);
+
+        if(count%2==0) {
+            turn = 2;
+        }else {
+            turn=1;
+        }
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (b1.getText().toString().equals("")){
+
                     if (turn==1) {
                         b1.setText("X");
                         turn = 2;
@@ -326,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //hide/show product detail section       Arsalan
         b9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
